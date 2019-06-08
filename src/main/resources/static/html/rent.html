@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- PAGE settings -->
+    <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
+    <title>格智空间 - 物品借用</title>
+    <meta name="description" content="Free Bootstrap 4 Pingendo Elegant template for restaurant and food">
+    <meta name="keywords" content="Pingendo restaurant food elegant free template bootstrap 4">
+    <!-- CSS dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          type="text/css">
+    <link rel="stylesheet" href="../res/css/elegant.css" type="text/css">
+    <!-- Script: Make my navbar transparent when the document is scrolled to top -->
+    <script  src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+    <script src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
+    <script src="../res/js/navbar-ontop.js"></script>
+    <!-- Script: Animated entrance -->
+    <script src="../res/js/animate-in.js"></script>
+</head>
+
+<script type="application/javascript">
+    $(function(){
+        var formObject = { "borrowedFlag":0 };
+        //查询全部可借
+        $.ajax({
+            url: "/tool/search",
+            type: "POST",
+            async:false,
+            beforeSend: function(request) {
+                var token = "Bearer "+$.cookie("token");
+                request.setRequestHeader("Authorization", token);
+            },
+            data:JSON.stringify(formObject),
+            contentType:"application/json; charset=utf-8",  //缺失会出现URL编码，无法转成json对象
+            success:function(data){
+                layer.msg(data.message);
+                if(data.flag){
+                    var resultList = data.data;
+                    var tempHtml ='';
+                    resultList.map(function(item, index) {
+                        tempHtml += ' ' + '<tr><th scope="row">'+ item.name + '</th> '
+                            + '<th scope="row">' +new Date(item.updateTime).Format("yyyy-MM-dd HH:mm:ss") + '</th><th scope="row"><button  class="btn navbar-btn ml-2 btn-secondary" ><a href="./qrcode.html?qrCodeType=2&boxId='+item.boxId +'">借用</a></button></th></tr>';
+                    });
+                    $('#awarddeliver-wrap').html(tempHtml);
+                }
+
+
+            },
+        });
+    });
+
+    Date.prototype.Format = function (fmt) { //author: meizz
+        var o = {
+            "M+": this.getMonth() + 1, //月份
+            "d+": this.getDate(), //日
+            "H+": this.getHours(), //小时
+            "m+": this.getMinutes(), //分
+            "s+": this.getSeconds(), //秒
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+            "S": this.getMilliseconds() //毫秒
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    };
+
+
+
+
+</script>
+
+<body class="text-center">
+<!-- Navbar -->
+<!-- Cover -->
+<!-- Intro -->
+<!-- Gallery -->
+<!-- Menu -->
+<!-- Carousel reviews -->
+<!-- Carousel venue -->
+<div class="py-3 cover align-items-center d-flex photo-overlay" id="venue">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 p-3">
+                <div class="py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2>可借物品清单</h2>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-hover table-striped table-bordered">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th scope="col">工具名称 </th>
+                        <th scope="col">上次归还时间</th>
+                        <th scope="col">借用</th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="text-center" id="awarddeliver-wrap">
+
+                    </tbody>
+
+                </table>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="./main.html" class="btn navbar-btn ml-2 btn-secondary">返回主页</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Events -->
+<!-- Dark opaque section -->
+<!-- Footer -->
+<div class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <p class="text-center text-muted">© Copyright 2018 格智空间 - All rights reserved. </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JavaScript dependencies -->
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<!-- Script: Smooth scrolling between anchors in the same page -->
+<script src="../res/js/smooth-scroll.js"></script>
+</body>
+
+</html>

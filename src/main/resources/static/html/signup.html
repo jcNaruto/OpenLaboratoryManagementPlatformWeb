@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- PAGE settings -->
+    <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
+    <title>格智空间 - 注册</title>
+    <meta name="description" content="Free Bootstrap 4 Pingendo Elegant template for restaurant and food">
+    <meta name="keywords" content="Pingendo restaurant food elegant free template bootstrap 4">
+    <!-- CSS dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          type="text/css">
+    <link rel="stylesheet" href="../res/css/elegant.css" type="text/css">
+    <!-- Script: Make my navbar transparent when the document is scrolled to top -->
+    <script  src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+    <script src="../res/js/navbar-ontop.js" type="application/javascript"></script>
+    <script src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
+    <!-- Script: Animated entrance -->
+    <script src="../res/js/animate-in.js" type="application/javascript"></script>
+</head>
+
+<script type="application/javascript">
+    //发送表单ajax请求
+   function signup(){
+       var formObject = {};
+       var formArray =$("#registerForm").serializeArray();
+       $.each(formArray,function(i,item){
+           formObject[item.name] = item.value;
+       });
+
+        $.ajax({
+            url:"/user/register",
+            type:"POST",
+            data:JSON.stringify(formObject),
+            contentType:"application/json; charset=utf-8",  //缺失会出现URL编码，无法转成json对象
+            success:function(data){
+                layer.msg(data.message);
+                if(data.flag){
+                    window.location.href="./login.html"
+                }
+            },
+        });
+    }
+
+    function sendEmail(){
+        var email = $(" input[ name='email' ]").val();
+        var formObject = {"email":email,"verificationCodeType":0};
+        $.ajax({
+            url:"/user/sendverificationcode",
+            type:"POST",
+            data:JSON.stringify(formObject),
+            contentType:"application/json; charset=utf-8",  //缺失会出现URL编码，无法转成json对象
+            success:function(data){
+                alert(data.message);
+            },
+        });
+    }
+
+</script>
+
+<body>
+<!-- Navbar -->
+<!-- Cover -->
+<!-- Intro -->
+<!-- Gallery -->
+<!-- Menu -->
+<!-- Carousel reviews -->
+<!-- Carousel venue -->
+<!-- Events -->
+<!-- Dark opaque section -->
+<div class="align-items-center d-flex py-5 photo-overlay cover" id="book"
+     style="background-image: url(&quot;../res/images/makereservation_dark.jpg&quot;);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-lg-6 p-3 animate-in-down">
+                <form id="registerForm" class="p-4 bg-dark-opaque" method="post" action="localhost:9001/user">
+                    <h4 class="mb-4 text-center">注册</h4>
+                    <div class="form-group">
+                        <label>名称</label>
+                        <input class="form-control" required="required" name="name"></div>
+                    <div class="form-group">
+                        <label>学号</label>
+                        <input class="form-control" type="text" required="required" name="userId"></div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input class="form-control" required="required" type="password" name="pwdHash"></div>
+                    <div class="form-group">
+                        <label>邮箱</label>
+                        <input class="form-control" required="required" type="text" name="email" id="email">
+                        <br>
+                        <button onclick="sendEmail()"  class="btn btn-block btn-outline-primary" >
+                            <b>点击获取验证码</b>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label>验证码</label>
+                        <input class="form-control"  type="text" name="verificationCode"></div>
+                    <button  onclick="signup()" class="btn mt-4 btn-block p-2 btn-outline-primary">
+                        <b>注册
+                            <br>
+                        </b>
+                    </button>
+                    <button class="btn mt-4 btn-block btn-outline-primary p-2">
+                        <b><a href="./main.html">返回</a></b>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<div class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-3">
+                <p class="text-center text-muted">© Copyright 2018 格智空间 - All rights reserved. </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JavaScript dependencies -->
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<!-- Script: Smooth scrolling between anchors in the same page -->
+<script src="../res/js/smooth-scroll.js" type="application/javascript"></script>
+</body>
+
+</html>

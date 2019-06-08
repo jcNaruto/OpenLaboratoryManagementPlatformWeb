@@ -1,0 +1,32 @@
+server:
+    port: 8081
+
+spring:
+    application:
+        name: gezhi
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://cdb-l4dg6xvy.cd.tencentcdb.com:10001/laboratory?characterEncoding=utf-8
+        username: root
+        password: Zjc1445055821
+    jpa:
+        database: MySQL
+        show‐sql: true
+        generate‐ddl: true
+    redis:
+        host: 140.143.186.223
+        password: password
+    mail:
+        host: smtp.163.com
+        username: jiachzhao@163.com
+        password: zjc1445055821
+        properties.mail.smtp.ssl.enable: true
+
+jwt:
+    config:
+        key: "jiahceng"
+        ttl: 3600000
+
+
+
+
