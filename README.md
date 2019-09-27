@@ -1,5 +1,5 @@
 # OpenLaboratoryManagementPlatformWeb
-该项目为项目[laboratory](https://github.com/jcNaruto/Laboratory)的升级版本，是Laboratory的web版本和升级版本，由作者一人维护
+该项目为项目[OpenLaboratoryManagementPlatform](https://github.com/jcNaruto/OpenLaboratoryManagementPlatform)的升级版本，是Laboratory的web版本和升级版本，由作者一人维护
 
 # 1.改进
 ## 1.1 技术改进
