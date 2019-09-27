@@ -1,14 +1,15 @@
 package com.jiachenzh.util;
 
-import com.jiachenzh.exception.LaboratoryExcecption;
+import com.jiachenzh.exception.LaboratoryException;
 import io.jsonwebtoken.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
-
+@Component
 @ConfigurationProperties("jwt.config")
 public class JwtUtil {
 
@@ -72,7 +73,7 @@ public class JwtUtil {
                     .parseClaimsJws(jwtStr)
                     .getBody();
         } catch (Exception e) {
-            throw new LaboratoryExcecption("请登陆");
+            throw new LaboratoryException("请登陆");
         }
     }
 
